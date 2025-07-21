@@ -24,7 +24,7 @@ remote_command = "df -h -BM"
 
 def mainRunner():
     with open(output_file, "w") as f:
-        f.write(f"{'SERVER NAME':<25} {'IP':<15} {'ENVIRONMENT':<25} {'TOTAL':<10} {'USED':<10} {'%Used':<10}\n")
+        f.write(f"{'SERVER NAME':<25} {'IP':<15} {'ENVIRONMENT':<25} {'TOTAL(GB)':<10} {'USED(GB)':<10} {'%Used':<10}\n")
         for ip, creds in servers.items():
             print(f"Processing {ip}")
             username = creds["username"]
@@ -43,7 +43,7 @@ def mainRunner():
                 final = result.stdout if result.stdout else result.stderr
                 summarization = summarize_df_output(final)
                 total        = summarization["total"]
-                used         = summarization["total"]
+                used         = summarization["used"]
                 percent_used = summarization["percent_used"]
 
                 f.write(f"{server_name:<25} {ip:<15} {environment:<25} {total:<10.2f} {used:<10.2f} {percent_used:<10.2f}\n")
